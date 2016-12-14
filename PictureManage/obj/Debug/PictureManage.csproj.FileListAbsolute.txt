@@ -1,0 +1,12 @@
+D:\MyWorking\Private\projects\PictureViewer\PictureViewer\PictureManage\bin\Debug\PictureManage.exe.config
+D:\MyWorking\Private\projects\PictureViewer\PictureViewer\PictureManage\bin\Debug\PictureManage.exe
+D:\MyWorking\Private\projects\PictureViewer\PictureViewer\PictureManage\bin\Debug\PictureManage.pdb
+D:\MyWorking\Private\projects\PictureViewer\PictureViewer\PictureManage\obj\Debug\PictureManage.csprojResolveAssemblyReference.cache
+D:\MyWorking\Private\projects\PictureViewer\PictureViewer\PictureManage\obj\Debug\PictureManage.Main.resources
+D:\MyWorking\Private\projects\PictureViewer\PictureViewer\PictureManage\obj\Debug\PictureManage.PictureList.resources
+D:\MyWorking\Private\projects\PictureViewer\PictureViewer\PictureManage\obj\Debug\PictureManage.Properties.Resources.resources
+D:\MyWorking\Private\projects\PictureViewer\PictureViewer\PictureManage\obj\Debug\PictureManage.Upload.resources
+D:\MyWorking\Private\projects\PictureViewer\PictureViewer\PictureManage\obj\Debug\PictureManage.csproj.GenerateResource.Cache
+D:\MyWorking\Private\projects\PictureViewer\PictureViewer\PictureManage\obj\Debug\PictureManage.exe
+D:\MyWorking\Private\projects\PictureViewer\PictureViewer\PictureManage\obj\Debug\PictureManage.pdb
+D:\MyWorking\Private\projects\PictureViewer\PictureViewer\PictureManage\obj\Debug\PictureViewer.Frm_Main.resources
