@@ -10,3 +10,16 @@ D:\MyWorking\Private\projects\PictureViewer\PictureViewer\PictureManage\obj\Debu
 D:\MyWorking\Private\projects\PictureViewer\PictureViewer\PictureManage\obj\Debug\PictureManage.exe
 D:\MyWorking\Private\projects\PictureViewer\PictureViewer\PictureManage\obj\Debug\PictureManage.pdb
 D:\MyWorking\Private\projects\PictureViewer\PictureViewer\PictureManage\obj\Debug\PictureViewer.Frm_Main.resources
+D:\workspace\coding\DotNet\PictureViewer\PictureManage\obj\Debug\PictureManage.csprojResolveAssemblyReference.cache
+D:\workspace\coding\DotNet\PictureViewer\PictureManage\obj\Debug\PictureManage.Main.resources
+D:\workspace\coding\DotNet\PictureViewer\PictureManage\obj\Debug\PictureManage.PictureList.resources
+D:\workspace\coding\DotNet\PictureViewer\PictureManage\obj\Debug\PictureManage.Properties.Resources.resources
+D:\workspace\coding\DotNet\PictureViewer\PictureManage\obj\Debug\PictureManage.Upload.resources
+D:\workspace\coding\DotNet\PictureViewer\PictureManage\obj\Debug\PictureManage.csproj.GenerateResource.Cache
+D:\workspace\coding\DotNet\PictureViewer\PictureManage\obj\Debug\PictureManage.exe
+D:\workspace\coding\DotNet\PictureViewer\PictureManage\obj\Debug\PictureManage.pdb
+D:\workspace\coding\DotNet\PictureViewer\PictureManage\bin\Debug\PictureManage.exe.config
+D:\workspace\coding\DotNet\PictureViewer\PictureManage\bin\Debug\PictureManage.exe
+D:\workspace\coding\DotNet\PictureViewer\PictureManage\bin\Debug\PictureManage.pdb
+D:\workspace\coding\DotNet\PictureViewer\PictureManage\obj\Debug\PictureViewer.PictureDetail.resources
+D:\workspace\coding\DotNet\PictureViewer\PictureManage\bin\Debug\images\addicon1.png

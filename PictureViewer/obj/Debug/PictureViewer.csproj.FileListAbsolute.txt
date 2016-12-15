@@ -28,3 +28,13 @@ D:\MyWorking\Private\projects\PictureViewer\PictureViewer\PictureViewer\obj\Debu
 D:\MyWorking\Private\projects\PictureViewer\PictureViewer\PictureViewer\obj\Debug\PictureViewer.Frm_Setting.resources
 D:\MyWorking\Private\projects\PictureViewer\PictureViewer\PictureViewer\obj\Debug\PictureViewer.Properties.Resources.resources
 D:\MyWorking\Private\projects\PictureViewer\PictureViewer\PictureViewer\obj\Debug\PictureViewer.csproj.GenerateResource.Cache
+D:\workspace\coding\DotNet\PictureViewer\PictureViewer\bin\Debug\PictureViewer.exe.config
+D:\workspace\coding\DotNet\PictureViewer\PictureViewer\obj\Debug\PictureViewer.exe
+D:\workspace\coding\DotNet\PictureViewer\PictureViewer\obj\Debug\PictureViewer.pdb
+D:\workspace\coding\DotNet\PictureViewer\PictureViewer\bin\Debug\PictureViewer.exe
+D:\workspace\coding\DotNet\PictureViewer\PictureViewer\bin\Debug\PictureViewer.pdb
+D:\workspace\coding\DotNet\PictureViewer\PictureViewer\obj\Debug\PictureViewer.csprojResolveAssemblyReference.cache
+D:\workspace\coding\DotNet\PictureViewer\PictureViewer\obj\Debug\PictureViewer.Frm_Main.resources
+D:\workspace\coding\DotNet\PictureViewer\PictureViewer\obj\Debug\PictureViewer.Frm_Setting.resources
+D:\workspace\coding\DotNet\PictureViewer\PictureViewer\obj\Debug\PictureViewer.Properties.Resources.resources
+D:\workspace\coding\DotNet\PictureViewer\PictureViewer\obj\Debug\PictureViewer.csproj.GenerateResource.Cache

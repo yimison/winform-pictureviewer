@@ -30,7 +30,7 @@ namespace ChenKH.Tools
         /// <param name="img"></param>
         /// <returns></returns>
         public static void Rotate90(Image img)
-        {            
+        {
             img.RotateFlip(RotateFlipType.Rotate90FlipNone);
         }
 
@@ -40,7 +40,7 @@ namespace ChenKH.Tools
         /// <param name="img"></param>
         /// <returns></returns>
         public static void Rotate180(Image img)
-        {            
+        {
             img.RotateFlip(RotateFlipType.Rotate180FlipNone);
         }
 
@@ -50,7 +50,7 @@ namespace ChenKH.Tools
         /// <param name="img"></param>
         /// <returns></returns>
         public static void Rotate270(Image img)
-        {            
+        {
             img.RotateFlip(RotateFlipType.Rotate270FlipNone);
         }
 
@@ -60,7 +60,7 @@ namespace ChenKH.Tools
         /// <param name="img"></param>
         /// <returns></returns>
         public static void FlipX(Image img)
-        {            
+        {
             img.RotateFlip(RotateFlipType.RotateNoneFlipX);
         }
         /// <summary>
@@ -69,7 +69,7 @@ namespace ChenKH.Tools
         /// <param name="img"></param>
         /// <returns></returns>
         public static void FlipY(Image img)
-        {            
+        {
             img.RotateFlip(RotateFlipType.RotateNoneFlipY);
         }
 
@@ -83,7 +83,7 @@ namespace ChenKH.Tools
             List<ImageInfo> lstGif = new List<ImageInfo>();
             Image gif = Image.FromFile(path);
             FrameDimension fd = new FrameDimension(gif.FrameDimensionsList[0]);
-            string savePath = Define.tempPath + "\\"  + Define.TEMP_FILE_HEAD + DateTime.Now.Ticks;
+            string savePath = Define.tempPath + "\\" + Define.TEMP_FILE_HEAD + DateTime.Now.Ticks;
             //保存图片路径
             if (!Directory.Exists(savePath))
                 Directory.CreateDirectory(savePath);
@@ -120,5 +120,70 @@ namespace ChenKH.Tools
             return lstGif;
         }
 
+        public static Image ByteArrayToImage(byte[] bytes)
+        {
+            MemoryStream ms = null;
+            Image obj = null;
+            try
+            {
+                ms = new MemoryStream(bytes);
+                ms.Position = 0;
+                obj = Image.FromStream(ms);
+            }
+            finally
+            {
+                if (ms != null)
+                {
+                    ms.Close();
+                    ms.Dispose();
+                }
+            }
+            return obj;
+        }
+        //将image转化为二进制 
+        public static byte[] GetBytesFromFile(string path)
+        {
+
+            byte[] bt = null;
+
+            using (FileStream mostream = new FileStream(path,FileMode.Open,FileAccess.Read))
+            {
+                bt = new byte[mostream.Length];
+
+                mostream.Position = 0;//设置留的初始位置
+
+                mostream.Read(bt, 0, Convert.ToInt32(bt.Length));
+            }
+            return bt;
+
+        }
+
+        //将image转化为二进制 
+        public static byte[] ImageToBytes(Image img, ImageFormat savemode)
+        {
+
+            byte[] bt = null;
+
+            if (!img.Equals(null))
+            {
+                using (MemoryStream mostream = new MemoryStream())
+                {
+                    Bitmap bmp = new Bitmap(img);
+
+                    bmp.Save(mostream, savemode);//将图像以指定的格式存入缓存内存流
+
+                    bt = new byte[mostream.Length];
+
+                    mostream.Position = 0;//设置留的初始位置
+
+                    mostream.Read(bt, 0, Convert.ToInt32(bt.Length));
+
+                }
+
+            }
+
+            return bt;
+
+        }
     }
 }

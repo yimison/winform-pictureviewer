@@ -43,9 +43,9 @@ namespace PictureManage
                 ms.Position = 0;
                 Image obj = Image.FromStream(ms);
                 imageList1.Images.Add(obj);
-                lstPictureView.Items.Add(list[i].TypeName, i);
+                lstPictureView.Items.Add("相册:" + list[i].AlbumName + "      共:" + list.Count + " 张", i);
                 lstPictureView.Items[i].ImageIndex = i;
-                lstPictureView.Items[i].Name = list[i].Type;
+                lstPictureView.Items[i].Name = list[i].AlbumName;
                 imageList1.ImageSize = new Size(100,100);
 
             }
@@ -68,6 +68,13 @@ namespace PictureManage
             }
             else
             { }
+        }
+
+        private void toolStripButton1_Click(object sender, EventArgs e)
+        {
+            //跳到上传的窗体
+            var frm = new Upload();
+            frm.ShowDialog();
         }
     }
 }

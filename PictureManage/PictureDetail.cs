@@ -1,4 +1,5 @@
 ﻿using ChenKH.Tools;
+using PictureManage;
 //using Gif.Components;
 using System;
 using System.Collections.Generic;
@@ -17,7 +18,7 @@ using System.Windows.Forms;
 
 namespace PictureViewer
 {
-    public partial class Frm_Main : Form
+    public partial class PictureDetail : Form
     {
         #region 变量
         private int imgSelectedIndex;
@@ -27,10 +28,11 @@ namespace PictureViewer
             get { return imgSelectedIndex; }
             set { 
                 imgSelectedIndex = value;
-                InitGifInfo();
+                //InitGifInfo();
             }
         } //当前显示第X张图片
-        private List<string> lstImgPath;//当前文件夹所有的图片信息
+      //  private List<string> lstImgPath;//当前文件夹所有的图片信息
+        private List<ImageModel> lstImage;//当前文件夹所有的图片
         private List<ImageInfo> lstGifInfo = null;//当前显示的动态图切换成单张图片的信息
         private int gifSelectedIndex = 0;//显示动态图的第X张图片信息
         private Stopwatch gifStopwatch = new Stopwatch();//用来统计动态图的延迟
@@ -48,17 +50,19 @@ namespace PictureViewer
         private ToolTip toolTip = null;
         #endregion
 
-        public Frm_Main(string[] args)
+      
+        public PictureDetail(List<ImageModel> lst,int selectIndex)
         {
             InitializeComponent();
+            ImgSelectedIndex = selectIndex;
             InitData();
-            if (args.Length > 0)
+            if (lst.Count > 0)
             {
-                InitImage(args[0]);
+                InitImage(lst);
             }
         }
 
-        private void Frm_Main_Load(object sender, EventArgs e)
+        private void PictureDetail_Load(object sender, EventArgs e)
         {
 
         }
@@ -74,7 +78,9 @@ namespace PictureViewer
             lblScale.Visible = false;
             showMilliSecond = 0;
             scaleButtonClickFlag = 0;
-            lstImgPath = new List<string>();
+           // lstImgPath = new List<string>();
+            lstImage = new List<ImageModel>();
+
             lstGifInfo = new List<ImageInfo>();
             this.MouseWheel += new MouseEventHandler(MouseWheelEvent);
             pnlBottom.Visible = false;
@@ -125,48 +131,25 @@ namespace PictureViewer
             toolTip.SetToolTip(picBoxLeft, "上一张图片");
             toolTip.SetToolTip(picBoxRight, "下一张图片");
             toolTip.SetToolTip(picBoxReset, "还原图片");
-            toolTip.SetToolTip(picBoxOpen, "打开新图片");
-            toolTip.SetToolTip(picBoxSave, "保存图片");
-            toolTip.SetToolTip(picBoxSetting, "设置");
+            
         }
 
         /// <summary>
         /// 初始化图片
         /// </summary>
         /// <param name="path">图片路径</param>
-        private void InitImage(string path)
+        private void InitImage(List<ImageModel> lst)
         {
-            if (path.EndsWith(".png", true, null)
-                || path.EndsWith(".bmp", true, null)
-                || path.EndsWith(".jpg", true, null)
-                || path.EndsWith(".gif", true, null))
-            {
-                btnOpenImage.Visible = false;
-                pnlTop.Enabled = true;
-                pnlBottom.Enabled = true;
+            //btnOpenImage.Visible = false;
+            pnlTop.Enabled = true;
+            pnlBottom.Enabled = true;
 
-                ImgSelectedIndex = -1;
-                lstImgPath.Clear();
-                //获取该目录下所有图片
-                string[] files = Directory.GetFiles(path.Substring(0, path.LastIndexOf('\\')));
-                for (int i = 0; i < files.Length; i++)
-                {
-                    if (files[i].EndsWith(".png", true, null)
-                        || files[i].EndsWith(".bmp", true, null)
-                        || files[i].EndsWith(".jpg", true, null)
-                        || files[i].EndsWith(".gif", true, null))
-                    {
-                        lstImgPath.Add(files[i]);
-                        if (path == files[i])
-                            ImgSelectedIndex = lstImgPath.Count - 1;
-                    }
-                }
-                tmrAddFolderImages.Start();
-            }
-            else
-            {
-                MessageBox.Show("该格式暂不支持", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            //ImgSelectedIndex = 0;
+
+            lstImage.Clear();
+            lstImage = lst;
+           
+            tmrAddFolderImages.Start();
         }
 
         /// <summary>
@@ -176,13 +159,13 @@ namespace PictureViewer
         /// <param name="index"></param>
         private void AddFolderImages()
         {
-            btnOpenImage.Visible = false;
+            //btnOpenImage.Visible = false;
             pnlImage.Controls.Clear();
 
             Image.GetThumbnailImageAbort myCallback =
                 new Image.GetThumbnailImageAbort(ThumbnailCallback);
             StringBuilder sb = new StringBuilder();
-            for (int i = lstImgPath.Count - 1; i >= 0; i--)
+            for (int i = lstImage.Count - 1; i >= 0; i--)
             {
                 try
                 {
@@ -199,21 +182,21 @@ namespace PictureViewer
                     pic.Click += pic_Click;
                     pnl.Controls.Add(pic);
 
-                    Image img = Image.FromFile(lstImgPath[i]);
+                    Image img =ImageHelper.ByteArrayToImage(lstImage[i].image);
                     pic.Image = img.GetThumbnailImage(32, 32, myCallback, IntPtr.Zero);
                     img.Dispose();
                     img = null;
 
                     pnlImage.Controls.Add(pnl);
-                    toolTip.SetToolTip(pic, lstImgPath[i]);
-                    ShowNotify("加载图片 " + (lstImgPath.Count - i) + "/" + lstImgPath.Count);
+                   // toolTip.SetToolTip(pic, lstImgPath[i]);
+                    //ShowNotify("加载图片 " + (lstImgPath.Count - i) + "/" + lstImgPath.Count);
 
                     Application.DoEvents();
                 }
                 catch (Exception ex)//
                 {
-                    LogHelper.WriteError(ex);
-                    sb.AppendLine(lstImgPath[i]);
+                  //  LogHelper.WriteError(ex);
+                  //  sb.AppendLine(lstImgPath[i]);
                 }
             }
             if (sb.ToString().Length > 0)
@@ -251,40 +234,6 @@ namespace PictureViewer
             tmrAddFolderImages.Stop();
             AddFolderImages();
         }
-
-
-        /// <summary>
-        /// 初始化GIF图片信息
-        /// </summary>
-        private void InitGifInfo()
-        {
-            if (ImgSelectedIndex == -1)
-            {
-                tmrShowGif.Stop();
-                gifStopwatch.Stop();
-                gifSelectedIndex = -1;
-                lstGifInfo.Clear();
-            }
-            else
-            {
-                string path = lstImgPath[ImgSelectedIndex];
-                if (path.EndsWith(".gif", true, null))
-                {
-                    lstGifInfo = ImageHelper.GifToList(path);
-                    gifSelectedIndex = 0;
-                    gifStopwatch.Start();
-                    tmrShowGif.Start();
-                }
-                else
-                {
-                    tmrShowGif.Stop();
-                    gifStopwatch.Stop();
-                    gifSelectedIndex = -1;
-                    lstGifInfo.Clear();
-                }
-            }
-        }
-
         #endregion
 
         #region 图片移动
@@ -460,7 +409,7 @@ namespace PictureViewer
             PictureBox pic = sender as PictureBox;
             Control control = pic.Parent;
             ImgSelectedIndex = int.Parse(control.Tag.ToString());
-            ShowNotify((ImgSelectedIndex + 1) + "/" + lstImgPath.Count);
+            ShowNotify((ImgSelectedIndex + 1) + "/" + lstImage.Count);
             RefreshShowImage();
         }
 
@@ -473,7 +422,7 @@ namespace PictureViewer
             else
             {
                 ImgSelectedIndex--;
-                ShowNotify((ImgSelectedIndex + 1) + "/" + lstImgPath.Count);
+                ShowNotify((ImgSelectedIndex + 1) + "/" + lstImage.Count);
                 RefreshShowImage();
             }
 
@@ -481,14 +430,14 @@ namespace PictureViewer
 
         private void picBoxRight_Click(object sender, EventArgs e)
         {
-            if (ImgSelectedIndex >= lstImgPath.Count -1)
+            if (ImgSelectedIndex >= lstImage.Count -1)
             {
                 ShowNotify("已经是最后一张");
             }
             else
             {
                 ImgSelectedIndex++;
-                ShowNotify((ImgSelectedIndex + 1) + "/" + lstImgPath.Count);
+                ShowNotify((ImgSelectedIndex + 1) + "/" + lstImage.Count);
                 RefreshShowImage();
             }
         }
@@ -511,14 +460,14 @@ namespace PictureViewer
         #region 其它
         private void picBoxSave_Click(object sender, EventArgs e)
         {
-            pnlBottom.Enabled = false;
-            pnlTop.Enabled = false;
-            if (lstImgPath[ImgSelectedIndex].EndsWith(".gif", true, null))
-                SaveGifImage();
-            else
-                SaveImage();
-            pnlBottom.Enabled = true;
-            pnlTop.Enabled = true;
+            //pnlBottom.Enabled = false;
+            //pnlTop.Enabled = false;
+            //if (lstImgPath[ImgSelectedIndex].EndsWith(".gif", true, null))
+            //    SaveGifImage();
+            //else
+            //    SaveImage();
+            //pnlBottom.Enabled = true;
+            //pnlTop.Enabled = true;
         }
 
         private void picBoxReset_Click(object sender, EventArgs e)
@@ -555,47 +504,47 @@ namespace PictureViewer
         /// <summary>
         /// 保存图片
         /// </summary>
-        private void SaveImage()
-        {
-            Image img = ImageHelper.Scale(picBox.Image, picBox.Size);
-            SaveFileDialog sfd = GetSaveFileDialog();
-            if (sfd.ShowDialog() == DialogResult.OK)
-            {
-                img.Save(sfd.FileName);
-                MessageBox.Show("保存成功", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-        }
+        //private void SaveImage()
+       // {
+            //Image img = ImageHelper.Scale(picBox.Image, picBox.Size);
+            //SaveFileDialog sfd = GetSaveFileDialog();
+            //if (sfd.ShowDialog() == DialogResult.OK)
+            //{
+            //    img.Save(sfd.FileName);
+            //    MessageBox.Show("保存成功", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //}
+      //  }
 
         /// <summary>
         /// 获取保存对话框
         /// </summary>
         /// <returns></returns>
-        private SaveFileDialog GetSaveFileDialog()
-        {
-            int sepIndex = lstImgPath[ImgSelectedIndex].LastIndexOf('\\');
-            SaveFileDialog sfd = new SaveFileDialog();
-            sfd.InitialDirectory = lstImgPath[ImgSelectedIndex].Substring(0, sepIndex);
-            string fileName = lstImgPath[ImgSelectedIndex].Substring(sepIndex + 1);
-            int dotIndex = fileName.LastIndexOf('.');
-            string suffix = fileName.Substring(dotIndex + 1).ToLower();
-            sfd.FileName = fileName.Substring(0, dotIndex) + "_副本." + suffix;
-            if (suffix == "gif")
-            {
-                sfd.Filter = "GIF图片|*.gif";
-            }
-            else
-            {
-                sfd.Filter = "JPG图片|*.jpg|PNG图片|*.png|BMP图片|*.bmp";
+        //private SaveFileDialog GetSaveFileDialog()
+        //{
+        //    int sepIndex = lstImgPath[ImgSelectedIndex].LastIndexOf('\\');
+        //    SaveFileDialog sfd = new SaveFileDialog();
+        //    sfd.InitialDirectory = lstImgPath[ImgSelectedIndex].Substring(0, sepIndex);
+        //    string fileName = lstImgPath[ImgSelectedIndex].Substring(sepIndex + 1);
+        //    int dotIndex = fileName.LastIndexOf('.');
+        //    string suffix = fileName.Substring(dotIndex + 1).ToLower();
+        //    sfd.FileName = fileName.Substring(0, dotIndex) + "_副本." + suffix;
+        //    if (suffix == "gif")
+        //    {
+        //        sfd.Filter = "GIF图片|*.gif";
+        //    }
+        //    else
+        //    {
+        //        sfd.Filter = "JPG图片|*.jpg|PNG图片|*.png|BMP图片|*.bmp";
 
-                if (suffix == "jpg")
-                    sfd.FilterIndex = 0;
-                else if (suffix == "png")
-                    sfd.FilterIndex = 1;
-                else if (suffix == "bmp")
-                    sfd.FilterIndex = 2;
-            }
-            return sfd;
-        }
+        //        if (suffix == "jpg")
+        //            sfd.FilterIndex = 0;
+        //        else if (suffix == "png")
+        //            sfd.FilterIndex = 1;
+        //        else if (suffix == "bmp")
+        //            sfd.FilterIndex = 2;
+        //    }
+        //    return sfd;
+        //}
 
         /// <summary>
         /// 保存GIF图片
@@ -630,18 +579,16 @@ namespace PictureViewer
         {
             try
             {
-                lblImgText.Text = "同目录下所有图片 " + (ImgSelectedIndex + 1) + "/" + lstImgPath.Count;
-                string path = lstImgPath[ImgSelectedIndex];
-                if (path.EndsWith(".gif", true, null))
-                    path = lstGifInfo[gifSelectedIndex].Path;
-                picBox.Image = GetChangeImage(path);
+                lblImgText.Text = "同目录下所有图片 " + (ImgSelectedIndex + 1) + "/" + lstImage.Count;
+               
+                picBox.Image = GetChangeImage(lstImage[imgSelectedIndex].image);
                 //当图片宽度或高度小于窗体时，修改图片位置
                 if (this.Width >= picBox.Width && this.Height >= picBox.Height)
                     picBox.Location = new Point(this.Width / 2 - picBox.Width / 2, this.Height / 2 - picBox.Height / 2);
                 else if (this.Width >= picBox.Width)
-                    picBox.Location = new Point(this.Width / 2 - picBox.Width / 2, picBox.Location.Y);
-                else if (this.Height >= picBox.Height)
-                    picBox.Location = new Point(picBox.Location.X, this.Height / 2 - picBox.Height / 2);
+                    picBox.Location = new Point(this.Width / 2 - picBox.Width / 2, this.Height / 2 - picBox.Height / 2);
+                //else if (this.Height >= picBox.Height)
+                //    picBox.Location = new Point(picBox.Location.X, this.Height / 2 - picBox.Height / 2);
                 string str = string.Format("尺寸{1}×{2} 比例{3}% 顺时针旋转{4}° {5} {6}"
                     , "", picBox.Image.Width, picBox.Image.Height, imgScale, imgRotate, imgFlipX ? "水平翻转" : "", imgFlipY ? "垂直翻转" : "");
                 lblMsg.Text = str;
@@ -692,9 +639,34 @@ namespace PictureViewer
             return imgNew;
         }
 
-        private void Frm_Main_SizeChanged(object sender, EventArgs e)
+        private Image GetChangeImage(byte[] bytes)
         {
-            btnOpenImage.Location = new Point(this.Width / 2 - btnOpenImage.Width / 2, this.Height / 2 - btnOpenImage.Height / 2);
+            Image imgNew = ImageHelper.ByteArrayToImage(bytes);
+            //放大、缩小  
+            //Image imgNew = Image.FromFile(path);
+            int w = imgNew.Width * imgScale / 100;
+            int h = imgNew.Height * imgScale / 100;
+            w = w == 0 ? 1 : w;
+            h = h == 0 ? 1 : h;
+            imgNew = ImageHelper.Scale(imgNew, new Size(w, h));
+            //旋转
+            if (imgRotate == 90)
+                ImageHelper.Rotate90(imgNew);
+            else if (imgRotate == 180)
+                ImageHelper.Rotate180(imgNew);
+            else if (imgRotate == 270)
+                ImageHelper.Rotate270(imgNew);
+            //翻转
+            if (imgFlipX)
+                ImageHelper.FlipX(imgNew);
+            if (imgFlipY)
+                ImageHelper.FlipY(imgNew);
+            return imgNew;
+        }
+
+        private void PictureDetail_SizeChanged(object sender, EventArgs e)
+        {
+         
             lblScale.Location = new Point(this.Width / 2 - lblScale.Width / 2, this.Height / 2 - lblScale.Height / 2);
         }
 
@@ -703,30 +675,27 @@ namespace PictureViewer
           //  new Frm_Setting().ShowDialog();
         }
 
-        private void picBoxOpen_Click(object sender, EventArgs e)
-        {
-            OpenFile();
-        }
+       
 
         /// <summary>
         /// 打开一张图片
         /// </summary>
-        private void OpenFile()
-        {
-            OpenFileDialog ofd = new OpenFileDialog();
-            ofd.Filter = "图片文件|*.gif;*.bmp;*.jpg;*.png";
-            if (ofd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                InitImage(ofd.FileName);
-            }
-        }
+        //private void OpenFile()
+        //{
+        //    OpenFileDialog ofd = new OpenFileDialog();
+        //    ofd.Filter = "图片文件|*.gif;*.bmp;*.jpg;*.png";
+        //    if (ofd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+        //    {
+        //        InitImage(ofd.FileName);
+        //    }
+        //}
 
         private void btnOpenImage_Click(object sender, EventArgs e)
         {
-            OpenFile();
+            //OpenFile();
         }
 
-        private void Frm_Main_MouseMove(object sender, MouseEventArgs e)
+        private void PictureDetail_MouseMove(object sender, MouseEventArgs e)
         {
             //被PictureBox挡住后无效，改用Timer定时检测鼠标位置
             return;
@@ -743,7 +712,7 @@ namespace PictureViewer
 
         }
 
-        private void Frm_Main_FormClosed(object sender, FormClosedEventArgs e)
+        private void PictureDetail_FormClosed(object sender, FormClosedEventArgs e)
         {
             try
             {

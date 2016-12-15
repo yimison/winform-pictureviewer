@@ -59,6 +59,7 @@
             this.toolStripButton1.Name = "toolStripButton1";
             this.toolStripButton1.Size = new System.Drawing.Size(60, 22);
             this.toolStripButton1.Text = "上传图片";
+            this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
             // 
             // lstPictureView
             // 
@@ -67,9 +68,10 @@
             this.columnHeader2,
             this.columnHeader3,
             this.columnHeader4});
-            this.lstPictureView.Location = new System.Drawing.Point(31, 51);
+            this.lstPictureView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lstPictureView.Location = new System.Drawing.Point(0, 25);
             this.lstPictureView.Name = "lstPictureView";
-            this.lstPictureView.Size = new System.Drawing.Size(779, 518);
+            this.lstPictureView.Size = new System.Drawing.Size(861, 637);
             this.lstPictureView.TabIndex = 1;
             this.lstPictureView.UseCompatibleStateImageBehavior = false;
             this.lstPictureView.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lstPictureView_MouseDoubleClick);

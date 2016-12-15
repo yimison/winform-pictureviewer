@@ -22,12 +22,12 @@ namespace PictureManage
                 FileStream fs = null;
                 try
                 {
-                    string strFileName = "test.png";
+                    
+                    string strFileName = "pics\\test"+(i+1)+".jpg";
                     ImageModel obj = new ImageModel();
                     obj.Id = i;
-                    obj.Type = i.ToString();
-                    obj.TypeName = "test type "+i.ToString();
-                    obj.FileName = strFileName;
+                    obj.AlbumName = "test type "+i.ToString();
+                    obj.PictureName = strFileName;
                     fs = File.OpenRead(strFileName);
                     byte[] imageb = new byte[fs.Length];
                     fs.Read(imageb, 0, imageb.Length);
@@ -54,12 +54,11 @@ namespace PictureManage
                 FileStream fs = null;
                 try
                 {
-                    string strFileName = "test.png";
+                    string strFileName = "pics\\test" + (i + 1) + ".jpg";
                     ImageModel obj = new ImageModel();
                     obj.Id = i;
-                    obj.Type = type;
-                    obj.TypeName = type;
-                    obj.FileName = strFileName;
+                    obj.AlbumName = type;
+                    obj.PictureName = strFileName;
                     fs = File.OpenRead(strFileName);
                     byte[] imageb = new byte[fs.Length];
                     fs.Read(imageb, 0, imageb.Length);
@@ -104,5 +103,23 @@ namespace PictureManage
           //{ com3.Connection.Close(); }
         }
 
+        public int Insert(ImageModel input)
+        {
+            //insert 
+            return 0;
+        }
+
+        public int BulkInsert( List<ImageModel> input)
+        {
+            int success = 0;
+            foreach (var item in input)
+            {
+                if (Insert(item)>0)
+                {
+                    success++;
+                }
+            }
+            return success;
+        }
     }
 }

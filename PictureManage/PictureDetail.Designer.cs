@@ -1,6 +1,6 @@
 ﻿namespace PictureViewer
 {
-    partial class Frm_Main
+    partial class PictureDetail
     {
         /// <summary>
         /// 必需的设计器变量。
@@ -29,12 +29,10 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Frm_Main));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PictureDetail));
             this.pnlBottom = new System.Windows.Forms.Panel();
             this.panel9 = new System.Windows.Forms.Panel();
-            this.picBoxSetting = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.picBoxOpen = new System.Windows.Forms.PictureBox();
             this.panel8 = new System.Windows.Forms.Panel();
             this.panel7 = new System.Windows.Forms.Panel();
             this.panel6 = new System.Windows.Forms.Panel();
@@ -47,13 +45,11 @@
             this.picBoxRotate270 = new System.Windows.Forms.PictureBox();
             this.picBoxFlipY = new System.Windows.Forms.PictureBox();
             this.picBoxFlipX = new System.Windows.Forms.PictureBox();
-            this.picBoxSave = new System.Windows.Forms.PictureBox();
             this.picBoxAdd = new System.Windows.Forms.PictureBox();
             this.picBoxSubtract = new System.Windows.Forms.PictureBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.lblMsg = new System.Windows.Forms.Label();
             this.picBox = new System.Windows.Forms.PictureBox();
-            this.btnOpenImage = new System.Windows.Forms.Button();
             this.lblScale = new System.Windows.Forms.Label();
             this.tmrScaleShowTime = new System.Windows.Forms.Timer(this.components);
             this.tmrScaleButtonClickTime = new System.Windows.Forms.Timer(this.components);
@@ -65,8 +61,6 @@
             this.tmrAddFolderImages = new System.Windows.Forms.Timer(this.components);
             this.tmrGetMousePosition = new System.Windows.Forms.Timer(this.components);
             this.pnlBottom.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picBoxSetting)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picBoxOpen)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picBoxRight)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picBoxLeft)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picBoxReset)).BeginInit();
@@ -74,7 +68,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.picBoxRotate270)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picBoxFlipY)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picBoxFlipX)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picBoxSave)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picBoxAdd)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picBoxSubtract)).BeginInit();
             this.panel2.SuspendLayout();
@@ -88,9 +81,7 @@
             this.pnlBottom.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.pnlBottom.BackColor = System.Drawing.Color.Gainsboro;
             this.pnlBottom.Controls.Add(this.panel9);
-            this.pnlBottom.Controls.Add(this.picBoxSetting);
             this.pnlBottom.Controls.Add(this.panel1);
-            this.pnlBottom.Controls.Add(this.picBoxOpen);
             this.pnlBottom.Controls.Add(this.panel8);
             this.pnlBottom.Controls.Add(this.panel7);
             this.pnlBottom.Controls.Add(this.panel6);
@@ -103,11 +94,10 @@
             this.pnlBottom.Controls.Add(this.picBoxRotate270);
             this.pnlBottom.Controls.Add(this.picBoxFlipY);
             this.pnlBottom.Controls.Add(this.picBoxFlipX);
-            this.pnlBottom.Controls.Add(this.picBoxSave);
             this.pnlBottom.Controls.Add(this.picBoxAdd);
             this.pnlBottom.Controls.Add(this.picBoxSubtract);
             this.pnlBottom.Controls.Add(this.panel2);
-            this.pnlBottom.Location = new System.Drawing.Point(128, 480);
+            this.pnlBottom.Location = new System.Drawing.Point(290, 480);
             this.pnlBottom.Name = "pnlBottom";
             this.pnlBottom.Size = new System.Drawing.Size(530, 70);
             this.pnlBottom.TabIndex = 2;
@@ -120,18 +110,6 @@
             this.panel9.Size = new System.Drawing.Size(1, 32);
             this.panel9.TabIndex = 18;
             // 
-            // picBoxSetting
-            // 
-            this.picBoxSetting.BackColor = System.Drawing.Color.Transparent;
-            this.picBoxSetting.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.picBoxSetting.Image = ((System.Drawing.Image)(resources.GetObject("picBoxSetting.Image")));
-            this.picBoxSetting.Location = new System.Drawing.Point(484, 30);
-            this.picBoxSetting.Name = "picBoxSetting";
-            this.picBoxSetting.Size = new System.Drawing.Size(32, 32);
-            this.picBoxSetting.TabIndex = 17;
-            this.picBoxSetting.TabStop = false;
-            this.picBoxSetting.Click += new System.EventHandler(this.picBoxSetting_Click);
-            // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.Gray;
@@ -139,18 +117,6 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1, 32);
             this.panel1.TabIndex = 16;
-            // 
-            // picBoxOpen
-            // 
-            this.picBoxOpen.BackColor = System.Drawing.Color.Transparent;
-            this.picBoxOpen.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.picBoxOpen.Image = ((System.Drawing.Image)(resources.GetObject("picBoxOpen.Image")));
-            this.picBoxOpen.Location = new System.Drawing.Point(394, 30);
-            this.picBoxOpen.Name = "picBoxOpen";
-            this.picBoxOpen.Size = new System.Drawing.Size(32, 32);
-            this.picBoxOpen.TabIndex = 16;
-            this.picBoxOpen.TabStop = false;
-            this.picBoxOpen.Click += new System.EventHandler(this.picBoxOpen_Click);
             // 
             // panel8
             // 
@@ -197,7 +163,7 @@
             this.picBoxRight.BackColor = System.Drawing.Color.Transparent;
             this.picBoxRight.Cursor = System.Windows.Forms.Cursors.Hand;
             this.picBoxRight.Image = ((System.Drawing.Image)(resources.GetObject("picBoxRight.Image")));
-            this.picBoxRight.Location = new System.Drawing.Point(304, 30);
+            this.picBoxRight.Location = new System.Drawing.Point(356, 27);
             this.picBoxRight.Name = "picBoxRight";
             this.picBoxRight.Size = new System.Drawing.Size(32, 32);
             this.picBoxRight.TabIndex = 13;
@@ -209,7 +175,7 @@
             this.picBoxLeft.BackColor = System.Drawing.Color.Transparent;
             this.picBoxLeft.Cursor = System.Windows.Forms.Cursors.Hand;
             this.picBoxLeft.Image = ((System.Drawing.Image)(resources.GetObject("picBoxLeft.Image")));
-            this.picBoxLeft.Location = new System.Drawing.Point(266, 30);
+            this.picBoxLeft.Location = new System.Drawing.Point(318, 27);
             this.picBoxLeft.Name = "picBoxLeft";
             this.picBoxLeft.Size = new System.Drawing.Size(32, 32);
             this.picBoxLeft.TabIndex = 12;
@@ -221,7 +187,7 @@
             this.picBoxReset.BackColor = System.Drawing.Color.Transparent;
             this.picBoxReset.Cursor = System.Windows.Forms.Cursors.Hand;
             this.picBoxReset.Image = ((System.Drawing.Image)(resources.GetObject("picBoxReset.Image")));
-            this.picBoxReset.Location = new System.Drawing.Point(349, 30);
+            this.picBoxReset.Location = new System.Drawing.Point(401, 27);
             this.picBoxReset.Name = "picBoxReset";
             this.picBoxReset.Size = new System.Drawing.Size(32, 32);
             this.picBoxReset.TabIndex = 9;
@@ -233,7 +199,7 @@
             this.picBoxRotate90.BackColor = System.Drawing.Color.Transparent;
             this.picBoxRotate90.Cursor = System.Windows.Forms.Cursors.Hand;
             this.picBoxRotate90.Image = ((System.Drawing.Image)(resources.GetObject("picBoxRotate90.Image")));
-            this.picBoxRotate90.Location = new System.Drawing.Point(219, 30);
+            this.picBoxRotate90.Location = new System.Drawing.Point(271, 27);
             this.picBoxRotate90.Name = "picBoxRotate90";
             this.picBoxRotate90.Size = new System.Drawing.Size(32, 32);
             this.picBoxRotate90.TabIndex = 8;
@@ -245,7 +211,7 @@
             this.picBoxRotate270.BackColor = System.Drawing.Color.Transparent;
             this.picBoxRotate270.Cursor = System.Windows.Forms.Cursors.Hand;
             this.picBoxRotate270.Image = ((System.Drawing.Image)(resources.GetObject("picBoxRotate270.Image")));
-            this.picBoxRotate270.Location = new System.Drawing.Point(181, 30);
+            this.picBoxRotate270.Location = new System.Drawing.Point(233, 27);
             this.picBoxRotate270.Name = "picBoxRotate270";
             this.picBoxRotate270.Size = new System.Drawing.Size(32, 32);
             this.picBoxRotate270.TabIndex = 7;
@@ -257,7 +223,7 @@
             this.picBoxFlipY.BackColor = System.Drawing.Color.Transparent;
             this.picBoxFlipY.Cursor = System.Windows.Forms.Cursors.Hand;
             this.picBoxFlipY.Image = ((System.Drawing.Image)(resources.GetObject("picBoxFlipY.Image")));
-            this.picBoxFlipY.Location = new System.Drawing.Point(98, 30);
+            this.picBoxFlipY.Location = new System.Drawing.Point(150, 27);
             this.picBoxFlipY.Name = "picBoxFlipY";
             this.picBoxFlipY.Size = new System.Drawing.Size(32, 32);
             this.picBoxFlipY.TabIndex = 6;
@@ -269,31 +235,19 @@
             this.picBoxFlipX.BackColor = System.Drawing.Color.Transparent;
             this.picBoxFlipX.Cursor = System.Windows.Forms.Cursors.Hand;
             this.picBoxFlipX.Image = ((System.Drawing.Image)(resources.GetObject("picBoxFlipX.Image")));
-            this.picBoxFlipX.Location = new System.Drawing.Point(136, 30);
+            this.picBoxFlipX.Location = new System.Drawing.Point(188, 27);
             this.picBoxFlipX.Name = "picBoxFlipX";
             this.picBoxFlipX.Size = new System.Drawing.Size(32, 32);
             this.picBoxFlipX.TabIndex = 5;
             this.picBoxFlipX.TabStop = false;
             this.picBoxFlipX.Click += new System.EventHandler(this.picBoxFlipX_Click);
             // 
-            // picBoxSave
-            // 
-            this.picBoxSave.BackColor = System.Drawing.Color.Transparent;
-            this.picBoxSave.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.picBoxSave.Image = ((System.Drawing.Image)(resources.GetObject("picBoxSave.Image")));
-            this.picBoxSave.Location = new System.Drawing.Point(439, 30);
-            this.picBoxSave.Name = "picBoxSave";
-            this.picBoxSave.Size = new System.Drawing.Size(32, 32);
-            this.picBoxSave.TabIndex = 4;
-            this.picBoxSave.TabStop = false;
-            this.picBoxSave.Click += new System.EventHandler(this.picBoxSave_Click);
-            // 
             // picBoxAdd
             // 
             this.picBoxAdd.BackColor = System.Drawing.Color.Transparent;
             this.picBoxAdd.Cursor = System.Windows.Forms.Cursors.Hand;
             this.picBoxAdd.Image = ((System.Drawing.Image)(resources.GetObject("picBoxAdd.Image")));
-            this.picBoxAdd.Location = new System.Drawing.Point(53, 30);
+            this.picBoxAdd.Location = new System.Drawing.Point(105, 27);
             this.picBoxAdd.Name = "picBoxAdd";
             this.picBoxAdd.Size = new System.Drawing.Size(32, 32);
             this.picBoxAdd.TabIndex = 3;
@@ -307,7 +261,7 @@
             this.picBoxSubtract.BackColor = System.Drawing.Color.Transparent;
             this.picBoxSubtract.Cursor = System.Windows.Forms.Cursors.Hand;
             this.picBoxSubtract.Image = ((System.Drawing.Image)(resources.GetObject("picBoxSubtract.Image")));
-            this.picBoxSubtract.Location = new System.Drawing.Point(15, 30);
+            this.picBoxSubtract.Location = new System.Drawing.Point(67, 27);
             this.picBoxSubtract.Name = "picBoxSubtract";
             this.picBoxSubtract.Size = new System.Drawing.Size(32, 32);
             this.picBoxSubtract.TabIndex = 1;
@@ -340,7 +294,7 @@
             // 
             // picBox
             // 
-            this.picBox.Location = new System.Drawing.Point(334, 184);
+            this.picBox.Location = new System.Drawing.Point(487, 196);
             this.picBox.Name = "picBox";
             this.picBox.Size = new System.Drawing.Size(128, 128);
             this.picBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -350,23 +304,12 @@
             this.picBox.MouseMove += new System.Windows.Forms.MouseEventHandler(this.picBox_MouseMove);
             this.picBox.MouseUp += new System.Windows.Forms.MouseEventHandler(this.picBox_MouseUp);
             // 
-            // btnOpenImage
-            // 
-            this.btnOpenImage.Font = new System.Drawing.Font("宋体", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btnOpenImage.Location = new System.Drawing.Point(275, 204);
-            this.btnOpenImage.Name = "btnOpenImage";
-            this.btnOpenImage.Size = new System.Drawing.Size(250, 82);
-            this.btnOpenImage.TabIndex = 4;
-            this.btnOpenImage.Text = "打开一张图片";
-            this.btnOpenImage.UseVisualStyleBackColor = true;
-            this.btnOpenImage.Click += new System.EventHandler(this.btnOpenImage_Click);
-            // 
             // lblScale
             // 
             this.lblScale.BackColor = System.Drawing.Color.Gray;
             this.lblScale.Font = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lblScale.ForeColor = System.Drawing.Color.White;
-            this.lblScale.Location = new System.Drawing.Point(275, 231);
+            this.lblScale.Location = new System.Drawing.Point(428, 243);
             this.lblScale.Name = "lblScale";
             this.lblScale.Size = new System.Drawing.Size(250, 37);
             this.lblScale.TabIndex = 2;
@@ -387,7 +330,7 @@
             this.pnlTop.BackColor = System.Drawing.Color.Gainsboro;
             this.pnlTop.Controls.Add(this.pnlImage);
             this.pnlTop.Controls.Add(this.panel4);
-            this.pnlTop.Location = new System.Drawing.Point(8, 12);
+            this.pnlTop.Location = new System.Drawing.Point(170, 12);
             this.pnlTop.Name = "pnlTop";
             this.pnlTop.Size = new System.Drawing.Size(768, 70);
             this.pnlTop.TabIndex = 5;
@@ -437,28 +380,25 @@
             this.tmrGetMousePosition.Interval = 50;
             this.tmrGetMousePosition.Tick += new System.EventHandler(this.tmrGetMousePosition_Tick);
             // 
-            // Frm_Main
+            // PictureDetail
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(784, 562);
+            this.ClientSize = new System.Drawing.Size(1108, 562);
             this.Controls.Add(this.pnlTop);
             this.Controls.Add(this.lblScale);
             this.Controls.Add(this.pnlBottom);
-            this.Controls.Add(this.btnOpenImage);
             this.Controls.Add(this.picBox);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(800, 600);
-            this.Name = "Frm_Main";
+            this.Name = "PictureDetail";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "图片浏览器-V1.0";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Frm_Main_FormClosed);
-            this.Load += new System.EventHandler(this.Frm_Main_Load);
-            this.SizeChanged += new System.EventHandler(this.Frm_Main_SizeChanged);
-            this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Frm_Main_MouseMove);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.PictureDetail_FormClosed);
+            this.Load += new System.EventHandler(this.PictureDetail_Load);
+            this.SizeChanged += new System.EventHandler(this.PictureDetail_SizeChanged);
+            this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.PictureDetail_MouseMove);
             this.pnlBottom.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.picBoxSetting)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picBoxOpen)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picBoxRight)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picBoxLeft)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picBoxReset)).EndInit();
@@ -466,7 +406,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.picBoxRotate270)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picBoxFlipY)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picBoxFlipX)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picBoxSave)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picBoxAdd)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picBoxSubtract)).EndInit();
             this.panel2.ResumeLayout(false);
@@ -485,12 +424,10 @@
         private System.Windows.Forms.Label lblMsg;
         private System.Windows.Forms.PictureBox picBoxSubtract;
         private System.Windows.Forms.PictureBox picBox;
-        private System.Windows.Forms.Button btnOpenImage;
         private System.Windows.Forms.PictureBox picBoxAdd;
         private System.Windows.Forms.Label lblScale;
         private System.Windows.Forms.Timer tmrScaleShowTime;
         private System.Windows.Forms.Timer tmrScaleButtonClickTime;
-        private System.Windows.Forms.PictureBox picBoxSave;
         private System.Windows.Forms.PictureBox picBoxRotate90;
         private System.Windows.Forms.PictureBox picBoxRotate270;
         private System.Windows.Forms.PictureBox picBoxFlipY;
@@ -510,9 +447,7 @@
         private System.Windows.Forms.Timer tmrShowGif;
         private System.Windows.Forms.Timer tmrAddFolderImages;
         private System.Windows.Forms.Panel panel9;
-        private System.Windows.Forms.PictureBox picBoxSetting;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.PictureBox picBoxOpen;
         private System.Windows.Forms.Timer tmrGetMousePosition;
     }
 }

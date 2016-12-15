@@ -35,6 +35,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -48,11 +49,12 @@
   <ItemGroup>
     <Compile Include="DB\ImageModel.cs" />
     <Compile Include="DB\PictureDal.cs" />
-    <Compile Include="Frm_Main.cs">
+    <Compile Include="Helper\DBHelper.cs" />
+    <Compile Include="PictureDetail.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Frm_Main.Designer.cs">
-      <DependentUpon>Frm_Main.cs</DependentUpon>
+    <Compile Include="PictureDetail.Designer.cs">
+      <DependentUpon>PictureDetail.cs</DependentUpon>
     </Compile>
     <Compile Include="Helper\ConfigHelper.cs" />
     <Compile Include="Helper\Define.cs" />
@@ -80,8 +82,8 @@
     <Compile Include="Upload.Designer.cs">
       <DependentUpon>Upload.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Frm_Main.resx">
-      <DependentUpon>Frm_Main.cs</DependentUpon>
+    <EmbeddedResource Include="PictureDetail.resx">
+      <DependentUpon>PictureDetail.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Main.resx">
       <DependentUpon>Main.cs</DependentUpon>
@@ -97,6 +99,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <EmbeddedResource Include="Upload.resx">
       <DependentUpon>Upload.cs</DependentUpon>
@@ -114,7 +117,13 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="images\addicon.png" />
+    <Content Include="images\addicon2.jpg" />
+    <Content Include="images\addicon1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
