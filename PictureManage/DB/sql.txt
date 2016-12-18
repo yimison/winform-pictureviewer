@@ -1,0 +1,14 @@
+CREATE TABLE _Image(
+Id int primary key identity ,
+AlbumCode int ,
+AlbumName nvarchar(30),
+PictureName nvarchar(150),
+image IMAGE ,
+
+)
+
+CREATE TABLE _Album
+(
+Id int primary key identity ,
+Name nvarchar(30)
+)

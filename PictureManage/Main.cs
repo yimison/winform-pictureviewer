@@ -22,12 +22,10 @@ namespace PictureManage
 
         protected override void OnLoad(EventArgs e)
         {
-            //加载类型列表
             LoadTypeList();
-
             base.OnLoad(e);
         }
-
+        //加载相册
         private void LoadTypeList()
         {
             imageList1.Images.Clear();
@@ -35,17 +33,17 @@ namespace PictureManage
 
             //往数据库去图片列表
             PictureDal dal = new PictureDal();
-            List<ImageModel> list=dal.GetImageTypeList();
-            
+            var list = dal.GetImageTypeList();
             for (int i = 0; i < list.Count; i++)
             {
                 MemoryStream ms = new MemoryStream(list[i].image);
                 ms.Position = 0;
                 Image obj = Image.FromStream(ms);
                 imageList1.Images.Add(obj);
-                lstPictureView.Items.Add("相册:" + list[i].AlbumName + "      共:" + list.Count + " 张", i);
+                lstPictureView.Items.Add(list[i].AlbumName + " 共:" + list[i].PicsCount + " 张", i);
                 lstPictureView.Items[i].ImageIndex = i;
-                lstPictureView.Items[i].Name = list[i].AlbumName;
+                lstPictureView.Items[i].Name = list[i].AlbumCode.ToString();
+               // lstPictureView.Items[i].Text = list[i].AlbumCode.ToString();
                 imageList1.ImageSize = new Size(100,100);
 
             }
@@ -55,7 +53,7 @@ namespace PictureManage
             //初始化listview
         }
 
-
+        
         private void lstPictureView_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             var me = (MouseEventArgs)e;
@@ -63,6 +61,7 @@ namespace PictureManage
 
             if (item != null)
             {
+                //弹出图片列表窗体
                 var form = new PictureList(item.Name);
                 form.ShowDialog();
             }
@@ -74,7 +73,11 @@ namespace PictureManage
         {
             //跳到上传的窗体
             var frm = new Upload();
-            frm.ShowDialog();
+            if (frm.ShowDialog()==DialogResult.None)
+            {
+
+            }
+            LoadTypeList();
         }
     }
 }

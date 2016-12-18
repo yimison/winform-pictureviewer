@@ -748,9 +748,5 @@ namespace PictureViewer
         }
 
         #endregion
-
-
-
-
     }
 }

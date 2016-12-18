@@ -90,7 +90,7 @@
             this.Controls.Add(this.lstPictureView);
             this.Controls.Add(this.toolStrip1);
             this.Name = "Main";
-            this.Text = "图片管理";
+            this.Text = "相册";
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.ResumeLayout(false);

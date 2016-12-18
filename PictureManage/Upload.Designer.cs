@@ -32,8 +32,11 @@
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.cmbImageList = new System.Windows.Forms.ToolStripComboBox();
+            this.tlbUpload = new System.Windows.Forms.ToolStripButton();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.tlbAddAlbum = new System.Windows.Forms.ToolStripButton();
             this.toolStrip1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -43,7 +46,10 @@
             // 
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripLabel1,
-            this.cmbImageList});
+            this.cmbImageList,
+            this.tlbUpload,
+            this.toolStripSeparator1,
+            this.tlbAddAlbum});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(1079, 25);
@@ -53,13 +59,22 @@
             // toolStripLabel1
             // 
             this.toolStripLabel1.Name = "toolStripLabel1";
-            this.toolStripLabel1.Size = new System.Drawing.Size(59, 22);
-            this.toolStripLabel1.Text = "图片类型:";
+            this.toolStripLabel1.Size = new System.Drawing.Size(35, 22);
+            this.toolStripLabel1.Text = "相册:";
             // 
             // cmbImageList
             // 
             this.cmbImageList.Name = "cmbImageList";
             this.cmbImageList.Size = new System.Drawing.Size(121, 25);
+            // 
+            // tlbUpload
+            // 
+            this.tlbUpload.Image = ((System.Drawing.Image)(resources.GetObject("tlbUpload.Image")));
+            this.tlbUpload.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tlbUpload.Name = "tlbUpload";
+            this.tlbUpload.Size = new System.Drawing.Size(52, 22);
+            this.tlbUpload.Text = "上传";
+            this.tlbUpload.Click += new System.EventHandler(this.tlbUpload_Click);
             // 
             // tableLayoutPanel1
             // 
@@ -94,6 +109,20 @@
             this.pictureBox1.TabStop = false;
             this.pictureBox1.Click += new System.EventHandler(this.pictureBox_Click);
             // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+            // 
+            // tlbAddAlbum
+            // 
+            this.tlbAddAlbum.Image = ((System.Drawing.Image)(resources.GetObject("tlbAddAlbum.Image")));
+            this.tlbAddAlbum.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tlbAddAlbum.Name = "tlbAddAlbum";
+            this.tlbAddAlbum.Size = new System.Drawing.Size(76, 22);
+            this.tlbAddAlbum.Text = "新建相册";
+            this.tlbAddAlbum.Click += new System.EventHandler(this.tlbAddAlbum_Click);
+            // 
             // Upload
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -119,5 +148,8 @@
         private System.Windows.Forms.ToolStripComboBox cmbImageList;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.ToolStripButton tlbUpload;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripButton tlbAddAlbum;
     }
 }

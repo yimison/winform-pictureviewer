@@ -1,8 +1,10 @@
-﻿using System;
+﻿using ChenKH.Tools;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -12,114 +14,128 @@ namespace PictureManage
 {
     public class PictureDal
     {
-
-        public List<ImageModel> GetImageTypeList()
+        /// <summary>
+        /// 获取相册
+        /// </summary>
+        /// <returns></returns>
+        public List<AlbumForDropdownList> GetImageTypeList()
         {
-            List<ImageModel> list = new List<ImageModel>();
-          
-            for (int i = 0; i < 5; i++)
+            List<AlbumForDropdownList> list = new List<AlbumForDropdownList>();
+            //get album
+            string sql = "select * from _Album ";
+            var dt=SqlHelper.ExecuteDatatableText(sql, null);
+            foreach (DataRow item in dt.Rows)
             {
-                FileStream fs = null;
-                try
-                {
-                    
-                    string strFileName = "pics\\test"+(i+1)+".jpg";
-                    ImageModel obj = new ImageModel();
-                    obj.Id = i;
-                    obj.AlbumName = "test type "+i.ToString();
-                    obj.PictureName = strFileName;
-                    fs = File.OpenRead(strFileName);
-                    byte[] imageb = new byte[fs.Length];
-                    fs.Read(imageb, 0, imageb.Length);
+                AlbumForDropdownList obj = new AlbumForDropdownList();
+                obj.AlbumCode =int.Parse( item["Id"].ToString());
+                obj.AlbumName = item["Name"].ToString();
 
-                    obj.image = imageb;
-                    list.Add(obj);
-                }
-                finally
+                string _sql = "select image from _Image where AlbumCode="+ item["Id"].ToString();
+                var bytes = SqlHelper.ExecuteScalarText(_sql, null);
+                if (bytes!=null)
                 {
-                    if (fs != null)
-                    {
-                        fs.Close();
-                    }
+                    obj.image =(byte[]) bytes;
                 }
+                else
+                {
+                    obj.image =ImageHelper.ImageToBytes(Image.FromFile(@"images\\NoExistPics.png"), ImageFormat.Png);
+                }
+                 _sql = "select count(1) from _Image where AlbumCode=" + item["Id"].ToString();
+                var count = SqlHelper.ExecuteScalarText(_sql, null);
+                obj.PicsCount = int.Parse(count.ToString());
+                list.Add(obj);
             }
+
             return list;
         }
-        public List<ImageModel> GetImageInfoListByType(string type)
+        /// <summary>
+        /// 获取相册的图片
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        public List<ImageModel> GetImageInfoListByAlbumCode(int albumCode)
         {
             List<ImageModel> list = new List<ImageModel>();
 
-            for (int i = 0; i < 5; i++)
+            string sql = "select * from _Image where AlbumCode="+albumCode;
+            var dt = SqlHelper.ExecuteDatatableText(sql, null);
+            foreach (DataRow item in dt.Rows)
             {
-                FileStream fs = null;
-                try
-                {
-                    string strFileName = "pics\\test" + (i + 1) + ".jpg";
-                    ImageModel obj = new ImageModel();
-                    obj.Id = i;
-                    obj.AlbumName = type;
-                    obj.PictureName = strFileName;
-                    fs = File.OpenRead(strFileName);
-                    byte[] imageb = new byte[fs.Length];
-                    fs.Read(imageb, 0, imageb.Length);
-
-                    obj.image = imageb;
-                    list.Add(obj);
-                }
-                finally
-                {
-                    if (fs != null)
-                    {
-                        fs.Close();
-                    }
-                }
+                ImageModel model = new ImageModel();
+                model.Id =int.Parse( item["Id"].ToString());
+                model.AlbumName = item["AlbumName"].ToString();
+                model.AlbumCode = albumCode;
+                model.PictureName = item["PictureName"].ToString();
+                model.image = (byte[])item["image"];
+                list.Add(model);
             }
-            return list;
+                return list;
         }
-
+        /// <summary>
+        /// 保存图片
+        /// </summary>
+        /// <param name="list"></param>
+        /// <returns></returns>
         public int SaveImage(ImageModel list)
         {
             return 0;
         }
 
-        public void imgToDB(string sql)
-        { //参数sql中要求保存的imge变量名称为@images
-          //调用方法如：imgToDB("update UserPhoto set Photo=@images where UserNo='" + temp + "'");
-          //FileStream fs = File.OpenRead(t_photo.Text);
-          //byte[] imageb = new byte[fs.Length];
-          //fs.Read(imageb, 0, imageb.Length);
-          //fs.Close();
-          //SqlCommand com3 = new SqlCommand(sql, con);
-          //com3.Parameters.Add("@images", SqlDbType.Image).Value = imageb;
-          //if (com3.Connection.State == ConnectionState.Closed)
-          //    com3.Connection.Open();
-          //try
-          //{
-          //    com3.ExecuteNonQuery();
-          //}
-          //catch
-          //{ }
-          //finally
-          //{ com3.Connection.Close(); }
-        }
-
+       
+        /// <summary>
+        /// 新增图片
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         public int Insert(ImageModel input)
         {
-            //insert 
-            return 0;
-        }
+            string sql = "insert into _Image(AlbumCode,AlbumName,PictureName,image) values(@AlbumCode,@AlbumName,@PictureName,@image)";
 
-        public int BulkInsert( List<ImageModel> input)
+
+            var special = new SqlParameter("@image", SqlDbType.Image);
+            special.Value = input.image;
+            SqlParameter[] paras = new SqlParameter[]
+            {
+                new SqlParameter("@AlbumCode",input.AlbumCode),
+                new SqlParameter("@AlbumName",input.AlbumName),
+                new SqlParameter("@PictureName",input.PictureName),
+                special
+            };
+            
+           
+            int result = SqlHelper.ExecteNonQueryText(sql, paras);
+            return result;
+        }
+        /// <summary>
+        /// 批量新增图片
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+
+        public int BulkInsert(List<ImageModel> input)
         {
             int success = 0;
             foreach (var item in input)
             {
-                if (Insert(item)>0)
+                if (Insert(item) > 0)
                 {
                     success++;
                 }
             }
             return success;
+        }
+        /// <summary>
+        /// 新增相册
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public int InsertAlbum(Album model)
+        {
+            string sql = "insert into _Album(Name) values(@Name)";
+            SqlParameter par = new SqlParameter("@Name", SqlDbType.NVarChar);
+            par.Value = model.Name;
+            int result = SqlHelper.ExecteNonQueryText(sql, par);
+            return result;
         }
     }
 }

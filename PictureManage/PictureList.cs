@@ -19,25 +19,25 @@ namespace PictureManage
         {
             InitializeComponent();
         }
-        public PictureList(string type)
+        public PictureList(string albumCode)
         {
             InitializeComponent();
-            LoadListByType(type);
+            LoadListByType(int.Parse(albumCode));
         }
 
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
         }
-
-        private void LoadListByType(string type)
+        //加载图片
+        private void LoadListByType(int code)
         {
             imageList1.Images.Clear();
             lstPictureView.Clear();
 
             //往数据库去图片列表
             PictureDal dal = new PictureDal();
-             list = dal.GetImageInfoListByType(type);
+             list = dal.GetImageInfoListByAlbumCode(code);
 
             for (int i = 0; i < list.Count; i++)
             {
@@ -63,6 +63,7 @@ namespace PictureManage
 
             if (item != null)
             {
+                //弹出图片查看窗体
                 var PictureDetail = new PictureDetail(list,lstPictureView.SelectedItems[0].Index);
                 var obj = PictureDetail.ShowDialog();
             }

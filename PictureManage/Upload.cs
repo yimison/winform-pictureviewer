@@ -20,23 +20,30 @@ namespace PictureManage
         public Upload()
         {
             InitializeComponent();
+
+            InitData();
+        }
+        public void InitData()
+        {
             InitTypeDropDownList();
             list = new List<ImageModel>();
-
         }
-
         /// <summary>
         /// 初始化相册列表
         /// </summary>
         void InitTypeDropDownList()
         {
+            cmbImageList.Items.Clear();
             //get type list
             PictureDal dal = new PictureDal();
-            List<ImageModel> list = dal.GetImageTypeList();
+            List<AlbumForDropdownList> list = dal.GetImageTypeList();
+            Image ig = Image.FromFile("images\\unselect.png");
+            cmbImageList.Items.Add(new MyItem("0", "未选择", ig));
+
             //bind list control
             foreach (var item in list)
             {
-                cmbImageList.Items.Add(new MyItem(item.AlbumName, ImageHelper.ByteArrayToImage(item.image)));
+                cmbImageList.Items.Add(new MyItem(item.AlbumCode.ToString(),item.AlbumName, ImageHelper.ByteArrayToImage(item.image)));
             }
 
             //默认选中项索引
@@ -44,15 +51,20 @@ namespace PictureManage
             //自绘组合框需要设置的一些属性
             cmbImageList.ComboBox.DrawMode = DrawMode.OwnerDrawVariable;
             cmbImageList.DropDownStyle = ComboBoxStyle.DropDownList;
-            cmbImageList.ComboBox.ItemHeight = 30;
+            cmbImageList.ComboBox.ItemHeight = 35;
             cmbImageList.ComboBox.Width = 170;
             //添加DrawItem事件处理函数
             cmbImageList.ComboBox.DrawItem += comboBox_DrawItem;
             cmbImageList.ComboBox.SelectedIndexChanged += comboBox_SelectedChange;
         }
 
+        //绘制下拉列表
         private void comboBox_DrawItem(object sender, DrawItemEventArgs e)
         {
+            if (cmbImageList.Items.Count==0)
+            {
+                return;
+            }
             if ((e.State & DrawItemState.Selected) != 0)//鼠标选中在这个项上
             {
                 //渐变画刷
@@ -75,7 +87,7 @@ namespace PictureManage
             MyItem item = (MyItem)cmbImageList.Items[e.Index];
             Image img = item.Img;
             //图片绘制的区域
-            Rectangle imgRect = new Rectangle(6, e.Bounds.Y -3, 25, 25);
+            Rectangle imgRect = new Rectangle(6, e.Bounds.Y +5, 25, 25);
             e.Graphics.DrawImage(img, imgRect);
             //文本内容显示区域
             Rectangle textRect =
@@ -90,15 +102,17 @@ namespace PictureManage
 
         private void comboBox_SelectedChange(object sender, EventArgs e)
         {
-            MessageBox.Show("index:"+((MyItem)cmbImageList.ComboBox.SelectedItem).ToString());
+          
         }
-
+        //上传图片
         public void DoUpload()
         {
             PictureDal dal = new PictureDal();
-            //init list
-            
-
+            if (list.Count==0)
+            {
+                MessageBox.Show("请选择要上传的图片");
+                return;
+            }
             //insert db
             int success=dal.BulkInsert(list);
 
@@ -109,13 +123,19 @@ namespace PictureManage
         {
 
         }
-
+        //添加图片到窗体
         private void pictureBox_Click(object sender, EventArgs e)
         {
+            if (((MyItem)cmbImageList.SelectedItem).Value == "0")
+            {
+                MessageBox.Show("请选择要加入的相册");
+                return;
+            }
             PictureBox pb = (PictureBox)sender;
             PictureBoxClick(pb);
         }
 
+        //添加图片到窗体
         public void PictureBoxClick(PictureBox pb)
         {
             //get the location
@@ -161,8 +181,10 @@ namespace PictureManage
             }
 
             //add to the list
+            var controlItem = ((MyItem)cmbImageList.ComboBox.SelectedItem);
             ImageModel im = new ImageModel();
-            im.AlbumName = ((MyItem)cmbImageList.ComboBox.SelectedItem).Text;
+            im.AlbumCode =int.Parse(controlItem.Value);
+            im.AlbumName = controlItem.Text;
             im.PictureName = Path.GetFileName(strFileName);
 
             ImageFormat obj;
@@ -191,19 +213,34 @@ namespace PictureManage
             im.image = ImageHelper.ImageToBytes(image, obj);
             list.Add(im);
         }
+
+        private void tlbUpload_Click(object sender, EventArgs e)
+        {
+            DoUpload();
+        }
+
+        private void tlbAddAlbum_Click(object sender, EventArgs e)
+        {
+            //弹出新建相册窗体
+            AddAlbum frm = new AddAlbum();
+            frm.ShowDialog();
+            
+        }
     }
 
 
     public class MyItem
     {
+        public string Value { get; set; }
         //项文本内容
-        public String Text { get; set; }
+        public string Text { get; set; }
         //项图片
         public Image Img;
-        public MyItem(String text, Image img)
+        public MyItem(string value,string text, Image img)
         {
             Text = text;
             Img = img;
+            Value = value;
         }
         //重写ToString函数，返回项文本
         public override string ToString()

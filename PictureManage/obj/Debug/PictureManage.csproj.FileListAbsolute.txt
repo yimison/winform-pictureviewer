@@ -23,3 +23,8 @@ D:\workspace\coding\DotNet\PictureViewer\PictureManage\bin\Debug\PictureManage.e
 D:\workspace\coding\DotNet\PictureViewer\PictureManage\bin\Debug\PictureManage.pdb
 D:\workspace\coding\DotNet\PictureViewer\PictureManage\obj\Debug\PictureViewer.PictureDetail.resources
 D:\workspace\coding\DotNet\PictureViewer\PictureManage\bin\Debug\images\addicon1.png
+D:\workspace\coding\DotNet\PictureViewer\PictureManage\obj\Debug\PictureManage.AddAlbum.resources
+D:\workspace\coding\DotNet\PictureViewer\PictureManage\bin\Debug\DB\PictureDB.mdf
+D:\workspace\coding\DotNet\PictureViewer\PictureManage\bin\Debug\DB\PictureDB_log.ldf
+D:\workspace\coding\DotNet\PictureViewer\PictureManage\bin\Debug\images\unselect.png
+D:\workspace\coding\DotNet\PictureViewer\PictureManage\bin\Debug\images\NoExistPics.png
