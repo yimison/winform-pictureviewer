@@ -61,6 +61,10 @@ namespace PictureManage
         //绘制下拉列表
         private void comboBox_DrawItem(object sender, DrawItemEventArgs e)
         {
+            if (e.Index < 0)
+            {
+                return;
+            }
             if (cmbImageList.Items.Count==0)
             {
                 return;
@@ -224,7 +228,7 @@ namespace PictureManage
             //弹出新建相册窗体
             AddAlbum frm = new AddAlbum();
             frm.ShowDialog();
-            
+            InitData();
         }
     }
 
