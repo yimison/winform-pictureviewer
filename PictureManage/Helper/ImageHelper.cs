@@ -11,7 +11,7 @@ using System.Windows.Forms;
 
 namespace ChenKH.Tools
 {
-    class ImageHelper
+   public class ImageHelper
     {
         /// <summary>
         /// 放大或缩小图片

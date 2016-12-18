@@ -153,7 +153,7 @@ namespace PictureManage
             string strFileName = ofdl.FileName;
             Image image = Image.FromFile(strFileName);
             //change image
-            pb.Image = image;
+            pb.Image = ImageHelper.Scale(image,new Size(187, 136));
             pb.Enabled = false;
 
             //create addicon

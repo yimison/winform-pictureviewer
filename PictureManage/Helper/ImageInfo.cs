@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PictureViewer
 {
-    class ImageInfo
+   public class ImageInfo
     {
         //路径
         private string path;
